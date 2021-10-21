@@ -1,0 +1,14 @@
+{
+  "name": "blockchain-developer-bootcamp-final-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/jacobo1407b/blockchain-developer-bootcamp-final-project.git",
+  "author": "jacobo1407b <jacobohernandezmendieta7@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "truffle": "truffle init"
+  },
+  "dependencies": {
+    "truffle": "^5.4.15"
+  }
+}
