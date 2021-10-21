@@ -6,9 +6,20 @@
   "author": "jacobo1407b <jacobohernandezmendieta7@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "truffle": "truffle init"
+    "truffle": "truffle init",
+    "generate-types": "npx typechain --target=truffle-v5 'build/contracts/*.json'",
+    "postinstall": "npx truffle compile && yarn generate-types"
   },
   "dependencies": {
     "truffle": "^5.4.15"
+  },
+  "devDependencies": {
+    "@typechain/truffle-v5": "^5.1.0",
+    "@types/chai": "^4.2.22",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.11.1",
+    "ts-node": "^10.3.0",
+    "typechain": "^5.2.0",
+    "typescript": "^4.4.4"
   }
 }
