@@ -1,7 +1,8 @@
 require("ts-node").register({
   files: true,
 });
-/**
+/**    "generate-types": "npx typechain --target=truffle-v5 'build/contracts/*.json'",
+    "postinstall": "npx truffle compile && yarn generate-types"
  * Use this file to configure your truffle project. It's seeded with some
  * common settings for different networks and features like migrations,
  * compilation and testing. Uncomment the ones you need or modify
