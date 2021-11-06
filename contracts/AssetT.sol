@@ -76,6 +76,7 @@ contract AssetT{
         Property temp = properties[index];
         properties[index].hasAddress = _newowner;
         properties[index].id_user = _newhash;
+        properties[index].visible = false;
         history.push(History(
             id_history,
             temp.id_user,
@@ -94,7 +95,25 @@ contract AssetT{
 
     function getPropertysUser() public view returns(Property[]){
         //should return a array of propertys of a user
+        require(isUser[msg.sender] == true, "Este usuario no esta registrado");
+        Property[] temp = new Property[];
+        for(uint i = 0; i < properties.length; i++){
+            if(properties[i].id_user == user[msg.sender]){
+                temp.push(properties[i]);
+            }
+        }
+        return temp;
+    }
 
+    function getAllVisible() public view returns(Property[]){
+        //should return a array of all visible propertys
+        Property[] temp = new Property[];
+        for(uint i = 0; i < properties.length; i++){
+            if(properties[i].visible == true){
+                temp.push(properties[i]);
+            }
+        }
+        return temp;    
     }
 
     function getHistory() public view returns(History[]){
