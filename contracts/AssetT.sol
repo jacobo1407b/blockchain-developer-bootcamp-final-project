@@ -38,11 +38,11 @@ contract AssetT{
         return user[msg.sender];
     }
     
-    function registerProperty(string memory _uuid) public {
+    /*function registerProperty(string memory _uuid) public {
         require(isUser[msg.sender] == true,"Issuer not registered to register a certificate");
         issuerProperty[_uuid] = msg.sender;
         emit PropertyRegister(msg.sender, _uuid);
-    }
+    }*/
     function emitRegisterProperty(string memory _uuid, string memory _img_uid,string memory _name,uint256 _value) public {
         require(isUser[msg.sender] == true,"Issuer not registered to register a certificate");
         Property memory proper;
@@ -61,8 +61,24 @@ contract AssetT{
         
     }
     
-    function getProperty(uint _id) public view returns(Property memory){
+    function getIdProperty(uint _id) public view returns(Property memory){
         Property memory prop = propertyIdentifier[_id];
         return prop;
+    }
+    
+    function getProperty() public view returns(uint[] memory){
+        return issuerPropertyRegister[msg.sender];
+    }
+    
+    function onVisible(bool _visible,uint _id) public {
+        Property memory temp = propertyIdentifier[_id];
+        temp.visible = _visible;
+        propertyIdentifier[_id] = temp;
+    }
+    
+    function onUpdatePrice(uint _id, uint256 _newPrice) public{
+        Property memory temp = propertyIdentifier[_id];
+        temp.price = _newPrice;
+        propertyIdentifier[_id] = temp;
     }
 }
