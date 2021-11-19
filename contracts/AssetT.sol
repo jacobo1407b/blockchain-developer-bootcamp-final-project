@@ -28,8 +28,24 @@ contract AssetT{
     event PropertyRegister(address indexed isuser, string IPFS);
     event propertyIssued(uint indexed property,address indexed user, string indexed document);
     
-    function registerUser(string memory _user) public {
-        require((isUser[msg.sender] == false), "Este usuario ya esta registrado");
+    /* Modificadores */
+    
+     modifier isRegisterUser(){
+         require((isUser[msg.sender] == false), "Este usuario ya esta registrado");
+         _;
+     }//funciona
+     
+     modifier isUserActive(){
+         require(isUser[msg.sender] == true,"Este usuario no existe");
+         _;
+     }//funciona
+     modifier isAutorize(address owner){
+         require(owner == msg.sender, "403");
+         _;
+     }//funciona
+     
+    
+    function registerUser(string memory _user) public isRegisterUser(){
         user[msg.sender] = _user;
         isUser[msg.sender] = true;
         emit UserRegistered(msg.sender, _user);
@@ -44,8 +60,8 @@ contract AssetT{
         issuerProperty[_uuid] = msg.sender;
         emit PropertyRegister(msg.sender, _uuid);
     }*/
-    function emitRegisterProperty(string memory _uuid, string memory _img_uid,string memory _name,uint256 _value) public {
-        require(isUser[msg.sender] == true,"Issuer not registered to register a certificate");
+    function emitRegisterProperty(string memory _uuid, string memory _img_uid,string memory _name,uint256 _value) public isUserActive(){
+        
         Property memory proper;
         uint id = ++id_prop;
         
@@ -62,7 +78,7 @@ contract AssetT{
         
     }//funciona
     
-    function getIdProperty(uint _id) public view returns(Property memory){
+    function getIdProperty(uint _id) public view isAutorize(issuerProperty[_id]) returns(Property memory){
         Property memory prop = propertyIdentifier[_id];
         return prop;
     }//funciona
@@ -71,21 +87,21 @@ contract AssetT{
         return issuerPropertyRegister[msg.sender];
     }//funciona
     
-    function onVisible(bool _visible,uint _id) public {
+    function onVisible(bool _visible,uint _id) public isAutorize(issuerProperty[_id]){
         Property memory temp = propertyIdentifier[_id];
         temp.visible = _visible;
         propertyIdentifier[_id] = temp;
          emit propertyIssued(_id,msg.sender, temp.document_hash);
     }//funciona
     
-    function onUpdatePrice(uint _id, uint256 _newPrice) public{
+    function onUpdatePrice(uint _id, uint256 _newPrice) public isAutorize(issuerProperty[_id]){
         Property memory temp = propertyIdentifier[_id];
         temp.price = _newPrice;
         propertyIdentifier[_id] = temp;
         emit propertyIssued(_id,msg.sender, temp.document_hash);
     }//funciona
     
-    function payProperty(uint _id,string memory _newipfs) public payable{
+    function payProperty(uint _id,string memory _newipfs) public payable isAutorize(issuerProperty[_id]){
         address owner = issuerProperty[_id];
         Property memory temp = getIdProperty(_id);
         
@@ -101,20 +117,7 @@ contract AssetT{
         emit propertyIssued(_id,msg.sender, temp.document_hash);
     }//no funciona, investigar que tranza con esta funcion
     
-    /* Modificadores */
     
-     modifier isRegisterUser(){
-         require((isUser[msg.sender] == false), "Este usuario ya esta registrado");
-         _;
-     }
-     
-     modifier isRegisterProperty(){
-         _;
-     }
-     modifier isAutorize(address owner){
-         require(owner != msg.sender, "No autorizado");
-         _;
-     }
      
      
 }
