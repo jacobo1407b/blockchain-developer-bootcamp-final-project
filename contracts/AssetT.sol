@@ -20,7 +20,7 @@ contract AssetT{
     mapping(address => Property[]) properties;
     mapping(address => string) user;
     mapping(address => bool) isUser;
-    mapping(string => address) issuerProperty;
+    mapping(uint => address) issuerProperty;
     mapping(uint => Property) propertyIdentifier;
     mapping(address => uint[]) issuerPropertyRegister;
     
@@ -56,7 +56,7 @@ contract AssetT{
          proper.name = _name;
          proper.document_hash = _uuid;
          propertyIdentifier[id] = proper;
-         
+         issuerProperty[id]=msg.sender;
          issuerPropertyRegister[msg.sender].push(id);
          emit propertyIssued(id,msg.sender, _uuid);
         
@@ -85,15 +85,36 @@ contract AssetT{
         emit propertyIssued(_id,msg.sender, temp.document_hash);
     }//funciona
     
-    function payProperty(address _newowner,uint _id,string memory _newipfs) public{
+    function payProperty(uint _id,string memory _newipfs) public payable{
+        address owner = issuerProperty[_id];
         Property memory temp = getIdProperty(_id);
-        uint [] memory issuer =  issuerPropertyRegister[msg.sender];
-        temp.user = _newowner;
+        
+        
+        uint [] memory issuer =  issuerPropertyRegister[owner];
+        temp.user = msg.sender;
         temp.visible = false;
         temp.document_hash = _newipfs;
         propertyIdentifier[_id]=temp;
         issuer[_id]=0;
-        issuerPropertyRegister[_newowner].push(_id);
-        emit propertyIssued(_id,_newowner, temp.document_hash);
-    }
+        issuerProperty[_id]=msg.sender;
+        issuerPropertyRegister[msg.sender].push(_id);
+        emit propertyIssued(_id,msg.sender, temp.document_hash);
+    }//no funciona, investigar que tranza con esta funcion
+    
+    /* Modificadores */
+    
+     modifier isRegisterUser(){
+         require((isUser[msg.sender] == false), "Este usuario ya esta registrado");
+         _;
+     }
+     
+     modifier isRegisterProperty(){
+         _;
+     }
+     modifier isAutorize(address owner){
+         require(owner != msg.sender, "No autorizado");
+         _;
+     }
+     
+     
 }
