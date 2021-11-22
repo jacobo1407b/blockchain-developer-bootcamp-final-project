@@ -78,9 +78,18 @@ contract AssetT{
         
     }//funciona
     
-    function getIdProperty(uint _id) public view isAutorize(issuerProperty[_id]) returns(Property memory){
-        Property memory prop = propertyIdentifier[_id];
-        return prop;
+    function getIdProperty(uint _id) public view isAutorize(issuerProperty[_id]) 
+      returns(address  direccion,bool visible,uint256 price, string memory ipfs,string memory name, string memory document){
+       Property memory prop = propertyIdentifier[_id];
+    
+       direccion = prop.user;
+       visible = prop.visible;
+       price = prop.price;
+       ipfs = prop.ipfs_hash;
+       name = prop.name;
+       document = prop.document_hash;
+        
+       return (direccion,visible,price,ipfs,name,document);
     }//funciona
 
     function getProperty() public view returns(uint[] memory){
@@ -101,7 +110,7 @@ contract AssetT{
         emit propertyIssued(_id,msg.sender, temp.document_hash);
     }//funciona
     
-    function payProperty(uint _id,string memory _newipfs) public payable isAutorize(issuerProperty[_id]){
+    /*function payProperty(uint _id,string memory _newipfs) public payable isAutorize(issuerProperty[_id]){
         address owner = issuerProperty[_id];
         Property memory temp = getIdProperty(_id);
         
@@ -115,7 +124,7 @@ contract AssetT{
         issuerProperty[_id]=msg.sender;
         issuerPropertyRegister[msg.sender].push(_id);
         emit propertyIssued(_id,msg.sender, temp.document_hash);
-    }//no funciona, investigar que tranza con esta funcion
+    }//no funciona, investigar que tranza con esta funcion*/
     
     
      
