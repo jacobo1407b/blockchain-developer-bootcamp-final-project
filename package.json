@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "test":"truffle test",
-    "truffle": "truffle init"
+    "truffle": "truffle init",
+    "deploy":"yarn test && truffle deploy --development --reset"
   },
   "dependencies": {
     "next": "^11.1.2",
