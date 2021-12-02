@@ -2,3 +2,5 @@ node_modules
 build
 .next
 bin
+.secret
+.infura
