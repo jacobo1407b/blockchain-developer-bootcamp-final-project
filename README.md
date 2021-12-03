@@ -1,20 +1,60 @@
 # blockchain-developer-bootcamp-final-project
 
-# TRUNK ASSETS
+#  MARKET PLACE
 Final project for the consensys academy bootcamp (blockchain)
 
-1° Cargar documentos a IPFS (Propiedades,facturas,arrendamiento,notario)
+## Description
+This project uploads properties and trademarks registered by a user
+to a platform and creates a representation of these in a blockchain. 
+The user will have the option of being able to sell these brands and properties
 
-2° Validar que el dueño es propietario de la propiedad
+## Front - End
+[Code] (https://github.com/jacobo1407b/blockchain-developer-bootcamp-front)
 
-3° Si pasa la validacion vincular los documentos a un token
+[UI] (https://blockchain-developer-bootcamp-front.vercel.app)
 
-4° El usuario debe tener la opcion de poder vender o resguardar sus activos
+## Getting Started
 
-5° EL usuario principal debe tener un tablero con todas sus propiedades
+First, Install dependencies:
 
-6° Un comprador previamente validado accede a un tablero y visualizar propiedades
+```bash
+npm run install
+# or
+yarn
+```
+## Testing
 
-7° Validar y cargar nuevos documnetos de la propiedad en IPFS
+```bash
+npm run test
+# or
+yarn test
+```
 
-8° En el contrato cambiar el "owner" y re-vincular los nuevos documentos cargados sin eliminar los anteriores
+# Deploy
+
+
+Development:
+
+```bash
+npm run deploy
+# or
+yarn deploy
+```
+Testnet
+
+```bash
+npm run rinkeby
+# or
+yarn rinkeby
+```
+
+
+# Learn More
+
+create a ".secret" file that save a mnemonic
+
+create a ".infura" file that save a url and PROJECT ID infura
+
+```bash
+https://rinkeby.infura.io/v3/YOUR_PROYECT_ID
+```
