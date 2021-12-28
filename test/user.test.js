@@ -1,4 +1,3 @@
-
 const AssetT = artifacts.require('AssetT');
 
 let instance;
@@ -47,4 +46,4 @@ contract('AssetT', (accounts) => {
         let user = await instance.getUser();
         assert.equal(user, '');
     })
-})
+});
