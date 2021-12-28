@@ -9,9 +9,10 @@ to a platform and creates a representation of these in a blockchain.
 The user will have the option of being able to sell these brands and properties
 
 ## Front - End
-[Code] (https://github.com/jacobo1407b/blockchain-developer-bootcamp-front)
 
-[UI] (https://blockchain-developer-bootcamp-front.vercel.app)
+--- [Code](https://github.com/jacobo1407b/blockchain-developer-bootcamp-front) ----
+
+--- [UI](https://blockchain-developer-bootcamp-front.vercel.app) ---
 
 ## Getting Started
 
@@ -58,3 +59,6 @@ create a ".infura" file that save a url and PROJECT ID infura
 ```bash
 https://rinkeby.infura.io/v3/YOUR_PROYECT_ID
 ```
+
+## Demo
+--- [Demo](https://youtu.be/nF3vDAsEZw8) ----
